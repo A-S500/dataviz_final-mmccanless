@@ -1,0 +1,7 @@
+project:
+  title: "visualization_final_report"
+  render: 
+    - "*qmd"
+
+editor: visual
+

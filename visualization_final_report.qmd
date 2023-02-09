@@ -20,9 +20,9 @@ Additionally, if I were to chart this data as is, I would need to remove one aco
 
 Finally, while I was able to get the data processed and the chart working, the functions I found to change the color scheme and the titles on the graph would not work. Not sure why. Any help on that front would be appreciated!
 
-EDIT: After thinking on it for a bit, I think the best way to plot this data may be to calculate the year/year change in major lending categories such as mortgages, small business, real estate, personal loans, etc. and plot this on a graph.
+EDIT: After thinking on it for a bit, I think the best way to plot this is a bar chart where the y axis shows percentage of total balance sheet for each accounting category and the fill for the bars show percent change over 5 years. Facet wrap into one figure that can be displayed in paper.
 
-EDIT2: A bar chart where the y axis shows percentage of total balance sheet for each accounting category and the fill for the bars show percent change over 5 years. Facet wrap into one figure that can be displayed in paper.
+EDIT2: Under "Extra" I have tried to draw up the calculations needed to create columns for the rate of change as you would write them out on paper, but I'm not sure how you would do that in r. Any help here would be greatly appreciated!
 
 ```{r}
 library(tidyverse)
@@ -84,9 +84,36 @@ banks_database_20230203 |>
   # filter (name == "FIRST FEDERAL BANK OF KANSAS CITY") |>
    mutate(
     .by = c(Qtr),
-    prop = lnconoth/lnlsgr
-  ) |>
+    personal = lnconoth/lnlsgr,
+    mortgage = lnreres/lnlsgr, 
+    construction = lnrecons/lnlsgr, 
+    multifamily = lnremult/lnlsgr, 
+    auto = 	LNAUTO/lnlsgr, 
+  ) -> data2
+  ggplot(data2, aes(x = Year, y = 1))+
+  geom_col()+
+  facet_wrap(~name)
  
+```
+
+```{r}
+banks_database_20230203 |> 
+  filter (Year == c(2017, 2018, 2019, 2020, 2021)) |>
+  # filter (name == "FIRST FEDERAL BANK OF KANSAS CITY") |>
+   summarise()
+  mutate(
+    .by = Qtr,
+    personalrate = (2021lnconoth-2017lnconoth)/2021lnconoth)) x 100),
+    mortgagerate = (2021lnreres-2017lnreres)/2021lnreres))x 100),
+    constructionrate = (2021lnrecons - 2017lnrecons)/2021lnrecons))x 100),
+    multifamilyrate = (2021lnremult - 2017lnremult)/2021lnremult))x 100),
+    autorate = 	(2021LNAUTO - 2017LNAUTO) / (2021LNAUTO))x 100),
+  ) -> rates
+
+
+  # ggplot(data2, aes(x = Year, y = 1))+
+  # geom_col()+
+  # facet_wrap(~name)
 ```
 
 Update the mutate function to calculate inconoth relative to previous quarter (- by previous qtr and / by current value)

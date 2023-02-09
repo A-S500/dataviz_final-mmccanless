@@ -73,3 +73,18 @@ banks_database_20230203 |>
  
 
 ```
+
+## Extra
+
+```{r}
+banks_database_20230203 |> 
+  filter (Year == c(2017, 2018, 2019, 2020, 2021)) |>
+  # filter (name == "FIRST FEDERAL BANK OF KANSAS CITY") |>
+   mutate(
+    .by = c(Qtr),
+    prop = lnconoth/lnlsgr
+  ) |>
+ 
+```
+
+Update the mutate function to calculate inconoth relative to previous quarter (- by previous qtr and / by current value)

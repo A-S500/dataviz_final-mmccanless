@@ -22,6 +22,8 @@ Finally, while I was able to get the data processed and the chart working, the f
 
 EDIT: After thinking on it for a bit, I think the best way to plot this data may be to calculate the year/year change in major lending categories such as mortgages, small business, real estate, personal loans, etc. and plot this on a graph.
 
+EDIT2: A bar chart where the y axis shows percentage of total balance sheet for each accounting category and the fill for the bars show percent change over 5 years. Facet wrap into one figure that can be displayed in paper.
+
 ```{r}
 library(tidyverse)
 library(khroma)

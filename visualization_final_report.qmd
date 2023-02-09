@@ -8,7 +8,7 @@ format:
 
 ## 
 
-## Plotting bank data 
+## Plotting bank data
 
 As part of a paper that I have out for review right now, I examined the balance sheets of three banks to document the impact of partnering with a fintech risk assessment firm.
 
@@ -19,6 +19,8 @@ For the data vizualization assignment, I processed the data to chart the percent
 Additionally, if I were to chart this data as is, I would need to remove one acounting category from the data (for small business loans) given that 2/3 banks were active payroll protection program (PPP) lenders and that has a large impact on the data we're seeing for Cross River as the payroll protection program lending tapers off.
 
 Finally, while I was able to get the data processed and the chart working, the functions I found to change the color scheme and the titles on the graph would not work. Not sure why. Any help on that front would be appreciated!
+
+EDIT: After thinking on it for a bit, I think the best way to plot this data may be to calculate the year/year change in major lending categories such as mortgages, small business, real estate, personal loans, etc. and plot this on a graph.
 
 ```{r}
 library(tidyverse)

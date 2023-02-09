@@ -7,3 +7,67 @@ format:
 ---
 
 ## 
+
+## Plotting bank data 
+
+As part of a paper that I have out for review right now, I examined the balance sheets of three banks to document the impact of partnering with a fintech risk assessment firm.
+
+I created a database of all U.S. banks loans and leases, which I chopped down to look at these individual banks.
+
+For the data vizualization assignment, I processed the data to chart the percentage of each banks balance sheet devoted to this type of lending category. While this was interesting to see, I think it might be better to map percent change relative to other major lending categories at each bank.
+
+Additionally, if I were to chart this data as is, I would need to remove one acounting category from the data (for small business loans) given that 2/3 banks were active payroll protection program (PPP) lenders and that has a large impact on the data we're seeing for Cross River as the payroll protection program lending tapers off.
+
+Finally, while I was able to get the data processed and the chart working, the functions I found to change the color scheme and the titles on the graph would not work. Not sure why. Any help on that front would be appreciated!
+
+```{r}
+library(tidyverse)
+library(khroma)
+library (ggbeeswarm)
+```
+
+```{r}
+# firstfed_plot <-
+ggplot(banks_database_20230203, aes(x = Year, y = lnconoth)) +
+  geom_line(color = "red") 
+  #   facet_wrap(
+  #   ~name,
+  #   labeller = label_both
+  # )+
+  #   labs(title = "Loans & Leases")
+
+# firstfed_plot <-
+# ```
+```
+
+```{r}
+# bank_baseplot <-
+ggplot(banks_database_20230203, aes(x = Year, y = lnconoth, color = name)) +
+  geom_line() 
+  #   facet_wrap(
+  #   ~name,
+  #   labeller = label_both
+  # )+
+    # labs(title = "Loans & Leases")
+
+# bank_baseplot
+# ```
+```
+
+```{r}
+banks_database_20230203 |> 
+  filter (Year == c(2017, 2018, 2019, 2020, 2021)) |>
+  # filter (name == "FIRST FEDERAL BANK OF KANSAS CITY") |>
+   mutate(
+    .by = c(Qtr),
+    prop = lnconoth/lnlsgr
+  ) |>
+  ggplot(aes(Year, prop, fill = lnconoth))+
+  geom_area()+
+  facet_wrap(~name)
+  labs(title="Plot of length \n by dose",
+        x ="Dose (mg)", y = "Teeth length") +
+  scale_fill_brewer(palette = "Dark2") 
+ 
+
+```
